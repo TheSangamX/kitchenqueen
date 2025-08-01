@@ -1,1 +1,712 @@
-u
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radhika's Indian Kitchen - Flavors of India</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "🍛";
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #ffeb3b;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ffeb3b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23ff6b35" width="1200" height="800"/><circle fill="%23f7931e" cx="300" cy="200" r="80" opacity="0.7"/><circle fill="%23ffeb3b" cx="900" cy="300" r="60" opacity="0.5"/><circle fill="%23ff9800" cx="600" cy="500" r="100" opacity="0.6"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff4444, #ff6b35);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 68, 68, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .chef-avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Featured Recipes */
+        .recipes {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .recipe-image {
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .recipe-region {
+            color: #ff6b35;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* YouTube Section */
+        .youtube {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            text-align: center;
+        }
+
+        .youtube-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .youtube h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .youtube p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .subscribe-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .subscribe-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 60px 0;
+            background: #333;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #f7931e;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .chef-avatar {
+                width: 200px;
+                height: 200px;
+                font-size: 5rem;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Radhika's Kitchen</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#recipes">Recipes</a></li>
+                    <li><a href="#youtube">YouTube</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Flavors of India</h1>
+            <p>Join Radhika on a culinary journey across India, discovering authentic recipes and traditional cooking techniques from every corner of our beautiful country.</p>
+            <a href="#youtube" class="cta-button">Watch Latest Videos</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about fade-in">
+        <div class="container">
+            <h2 class="section-title">About Radhika</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Welcome to Radhika's Indian Kitchen! I'm passionate about preserving and sharing the rich culinary heritage of India. From the spicy curries of South India to the hearty dishes of Punjab, from Bengali sweets to Gujarati snacks - I explore it all!</p>
+                    
+                    <p>My journey started in my grandmother's kitchen, where I learned that food is not just about taste, but about love, tradition, and bringing people together. Through my YouTube channel, I share authentic recipes, cooking tips, and the stories behind each dish.</p>
+                    
+                    <p>Every recipe comes with easy-to-follow instructions, ingredient substitutions for international viewers, and the cultural significance of each dish. Let's cook together and celebrate the diversity of Indian cuisine!</p>
+                </div>
+                <div class="about-image">
+                    <div class="chef-avatar">👩‍🍳</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Recipes -->
+    <section id="recipes" class="recipes fade-in">
+        <div class="container">
+            <h2 class="section-title">Featured Recipes</h2>
+            <div class="recipe-grid">
+                <div class="recipe-card" onclick="openRecipe('biryani')">
+                    <div class="recipe-image">🍛</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Hyderabadi Biryani</h3>
+                        <div class="recipe-region">South India • Telangana</div>
+                        <p class="recipe-description">Aromatic basmati rice layered with tender mutton and exotic spices, cooked in the traditional dum style.</p>
+                    </div>
+                </div>
+
+                <div class="recipe-card" onclick="openRecipe('butter-chicken')">
+                    <div class="recipe-image">🍗</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Butter Chicken</h3>
+                        <div class="recipe-region">North India • Punjab</div>
+                        <p class="recipe-description">Creamy, rich tomato-based curry with tender chicken pieces, perfect with naan or rice.</p>
+                    </div>
+                </div>
+
+                <div class="recipe-card" onclick="openRecipe('masala-dosa')">
+                    <div class="recipe-image">🥞</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Masala Dosa</h3>
+                        <div class="recipe-region">South India • Karnataka</div>
+                        <p class="recipe-description">Crispy fermented crepe filled with spiced potato curry, served with coconut chutney and sambar.</p>
+                    </div>
+                </div>
+
+                <div class="recipe-card" onclick="openRecipe('rajma')">
+                    <div class="recipe-image">🫘</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Rajma Chawal</h3>
+                        <div class="recipe-region">North India • Himachal Pradesh</div>
+                        <p class="recipe-description">Comforting kidney bean curry in rich tomato gravy, best enjoyed with steamed rice.</p>
+                    </div>
+                </div>
+
+                <div class="recipe-card" onclick="openRecipe('dhokla')">
+                    <div class="recipe-image">🧽</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Gujarati Dhokla</h3>
+                        <div class="recipe-region">West India • Gujarat</div>
+                        <p class="recipe-description">Soft, spongy steamed cake made from fermented gram flour batter, tempered with mustard seeds.</p>
+                    </div>
+                </div>
+
+                <div class="recipe-card" onclick="openRecipe('fish-curry')">
+                    <div class="recipe-image">🐟</div>
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Bengali Fish Curry</h3>
+                        <div class="recipe-region">East India • West Bengal</div>
+                        <p class="recipe-description">Traditional fish curry cooked in mustard oil with onions, tomatoes, and aromatic Bengali spices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Section -->
+    <section id="youtube" class="youtube fade-in">
+        <div class="container">
+            <div class="youtube-content">
+                <h2>Join Our YouTube Family!</h2>
+                <p>Subscribe to get notified about new recipes, cooking tips, and regional food stories from across India. New videos every Tuesday and Friday!</p>
+                <a href="#" class="subscribe-button">
+                    ▶️ Subscribe to YouTube Channel
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats fade-in">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Recipes Shared</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="25000">0</div>
+                    <div class="stat-label">YouTube Subscribers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="28">0</div>
+                    <div class="stat-label">Indian States Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="500000">0</div>
+                    <div class="stat-label">Video Views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link">📺</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📌</a>
+            </div>
+            <p>&copy; 2025 Radhika's Indian Kitchen. Made with ❤️ for food lovers everywhere.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 20);
+        }
+
+        // Start counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.stat-number').forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-target'));
+                        animateCounter(stat, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        statsObserver.observe(statsSection);
+
+        // Recipe card click handler
+        function openRecipe(recipeName) {
+            alert(`🍴 "${recipeName}" recipe video coming soon! Subscribe to get notified when it's ready.`);
+        }
+
+        // Add some interactivity to the hero section
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            hero.style.backgroundPosition = `${50 + x * 5}% ${50 + y * 5}%`;
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(255, 107, 53, 0.95), rgba(247, 147, 30, 0.95))';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #ff6b35, #f7931e)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Recipe cards hover effect enhancement
+        document.querySelectorAll('.recipe-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Welcome message
+        setTimeout(() => {
+            console.log('🍛 Welcome to Radhika\'s Kitchen! Enjoy exploring the flavors of India! 🇮🇳');
+        }, 2000);
+    </script>
+</body>
+</html>
